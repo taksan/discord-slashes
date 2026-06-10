@@ -20,9 +20,10 @@ public class CommandScannerTest {
         subject.forEachCommand(commandClasses::add);
 
         assertEquals(
-            TestCommand.class + "," + AnotherTestCommand.class,
+            AnotherTestCommand.class + "," + TestCommand.class,
             commandClasses.stream()
                     .map(Object::toString)
+                    .sorted()
                     .filter(name -> name.contains("CommandScannerTest"))
                     .collect(Collectors.joining(","))
         );
