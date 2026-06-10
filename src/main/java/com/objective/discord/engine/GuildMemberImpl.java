@@ -23,7 +23,7 @@ public class GuildMemberImpl implements GuildMember{
 
     @Override
     public void replaceNickname(String nickname) {
-        member.modifyNickname(nickname).queue();
+        member.modifyNickname(nickname).complete();
     }
 
     @Override
