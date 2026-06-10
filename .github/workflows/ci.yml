@@ -10,6 +10,10 @@ on:
       - master
       - main
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,6 +28,13 @@ jobs:
           java-version: "21"
           distribution: temurin
           cache: maven
+          server-id: github
+          server-username: ${{ github.actor }}
+          server-password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and test
-        run: ./mvnw -B clean test
+        run: ./mvnw -B clean verify
+
+      - name: Publish to GitHub Packages
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+        run: ./mvnw -B deploy -DskipTests
