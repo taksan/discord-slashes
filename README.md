@@ -39,3 +39,11 @@ myAwesomeBot.start();
   * `my.commands.pkg` is the root package for your commands. This is used to limit the class scanning
     to ensure performance, so try to avoid using a top level package that would cause reflections to
     scan too many classes
+
+## Publishing
+
+CI publishes snapshots to GitHub Packages on pushes to `main`/`master`.
+
+1. Create a **classic** personal access token (fine-grained tokens are not supported by GitHub Packages) owned by the repository owner (`taksan`) with `write:packages` and `read:packages` scopes.
+2. Add it as a repository secret named `PACKAGES_PUBLISH_TOKEN` (Settings → Secrets and variables → Actions).
+3. Push these workflow changes to `main` — the workflow on GitHub must use `.github/maven/settings.xml` for authentication to work.
